@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+</html>
+<script>
+  Function.prototype.myCall = function (context, ...params) {
+    if (typeof context === 'object') {
+        context = context || window;
+    } else {
+      context = Object.create(null);
+    }
+
+    let symbol = Symbol();
+    context[symbol] = this;
+
+    let result = context[symbol](...params);
+    return result;
+  }
+
+  Function.prototype.myApply = function (context, params) {
+    if (typeof context === 'object') {
+        context = context || window;
+    } else {
+      context = Object.create(null);
+    }
+
+    let symbol = Symbol();
+    context[symbol] = this;
+
+    let result = context[symbol](...params);
+    return result;
+  }
+
+  Function.prototype.myBind = function (context, ...params) {
+    let self = this;
+
+    return function () {
+      self.apply(context, params);
+    };
+  }
+
+  function say(age, sex) {
+    console.log(111, this.name, age, sex);
+  }
+
+  say.myApply({name: '2211'}, [12, 1]);
+</script>
