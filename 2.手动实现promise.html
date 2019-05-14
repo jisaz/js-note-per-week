@@ -59,6 +59,7 @@
       onRejected = typeof onRejected === 'function' ? onRejected : error => { throw error };
 
       if (self.status === FULFILLED) {
+        console.log('FULFILLED')
         return bridgePromise =  new MyPromise((resolve, reject) => {
             setTimeout(() => {
               try {
@@ -72,6 +73,7 @@
       }
 
       if (self.status === REJECTED) {
+        console.log('REJECTED')
         return bridgePromise = new MyPromise((resolve, reject) => {
           setTimeout(() => {
             try {
@@ -198,5 +200,17 @@
       });
       return deffer;
     }
+
+    let myPromise = new MyPromise(function (resolve, reject) {
+      resolve(111);
+    }).then((data) => {
+      console.log(data);
+      return 222 + data;
+    }).then((data) => {
+      console.log(data);
+      return 333 + data;
+    }).then((data) => {
+      console.log(data);
+    })
 
 </script>
